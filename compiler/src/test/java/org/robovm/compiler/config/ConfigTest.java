@@ -203,7 +203,10 @@ public class ConfigTest {
         
         StringWriter out = new StringWriter();
         builder.write(out, wd);
-        assertEquals(IOUtils.toString(getClass().getResourceAsStream("ConfigTest.ios.xml")), out.toString());
+
+        String trimOut = trimAbsolutePaths(out.toString());
+
+        compareLineByLine(IOUtils.toString(getClass().getResourceAsStream("ConfigTest.ios.xml")), trimOut.toString());
     }
     
     private File createMergeConfig(File tmpDir, String dir, String id, OS os, Arch arch, boolean jar) throws Exception {
